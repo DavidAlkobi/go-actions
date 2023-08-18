@@ -8,4 +8,4 @@ func printText(text string) {
 
 func main() {
 	printText("Hello, World!")
-}
+
