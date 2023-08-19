@@ -46,7 +46,7 @@ jobs:
     - name: list
       run: ls -l
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: sum
         path: ./sum
@@ -57,7 +57,7 @@ jobs:
     steps:
 
     - name: Get the binary
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: sum
         path: .
@@ -72,10 +72,10 @@ jobs:
 
   docker_image_build_and_push:
     runs-on: ubuntu-latest
-    needs: test_bin_job
+    needs: unit-tests-job
     steps:
     - name: Get the binary
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: sum
         path: .
