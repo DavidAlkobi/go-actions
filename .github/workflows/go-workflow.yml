@@ -62,8 +62,6 @@ jobs:
         name: sum
         path: ./sum
 
-    - uses: actions/checkout@v3
-
     # step that tests the binary output is 15 or not
     - name: Test
       run: ./sum 1 2 3 4 5 | grep 15
