@@ -1,6 +1,13 @@
+// This program sums up integers passed as arguments
+// Usage: go run sum.go 1 2 3 4 5
+// Output: 15
+
 package main
 
-import "fmt"
+import (
+	"os"
+	"strconv"
+)
 
 // sumInts sums up integers
 func sumInts(nums ...int) int {
@@ -11,6 +18,24 @@ func sumInts(nums ...int) int {
 	return sum
 }
 
+// Get integers from arguments and sum them up
 func main() {
-	fmt.Println(sumInts(1, 2, 3, 4, 5))
+	// get all the arguments
+	args := os.Args[1:]
+
+	// convert the arguments to integers
+	var nums []int
+	for _, arg := range args {
+		num, err := strconv.Atoi(arg)
+		if err != nil {
+			continue
+		}
+		nums = append(nums, num)
+	}
+
+	// sum up the integers
+	sum := sumInts(nums...)
+
+	// print the sum
+	println(sum)
 }
