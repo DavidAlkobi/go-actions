@@ -1,4 +1,4 @@
-# actions
+## actions
 
 # Test
 go test hello.go hello_test.go
