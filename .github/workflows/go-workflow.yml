@@ -72,14 +72,8 @@ jobs:
 
   docker_image_build_and_push:
     runs-on: ubuntu-latest
-    needs: unit-tests-job
+    needs: build-job
     steps:
-    - name: Get the binary
-      uses: actions/download-artifact@v3
-      with:
-        name: sum
-        path: .
-
     # - name: Set up QEMU
     #   uses: docker/setup-qemu-action@v1
 

@@ -36,6 +36,9 @@ func main() {
 	// sum up the integers
 	sum := sumInts(nums...)
 
+	// convert the sum to string
+	sum_string := strconv.Itoa(sum)
+
 	// print the sum
-	println(sum)
+	os.Stdout.WriteString(sum_string)
 }
