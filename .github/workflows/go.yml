@@ -35,4 +35,4 @@ jobs:
         go-version: '1.20'
 
     - name: Build
-      run: go build hello.go
+      run: go build sum.go
