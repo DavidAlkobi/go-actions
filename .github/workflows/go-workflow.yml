@@ -60,7 +60,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: sum
-        path: ./sum
+        path: .
 
     # step that tests the binary output is 15 or not
     - name: Test
