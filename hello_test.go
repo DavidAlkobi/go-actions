@@ -1,4 +1,3 @@
-// BEGIN: 8f7d6e5b5c4a
 package main
 
 import "testing"
@@ -34,5 +33,3 @@ func TestSumInts(t *testing.T) {
 		})
 	}
 }
-
-// END: 8f7d6e5b5c4a
