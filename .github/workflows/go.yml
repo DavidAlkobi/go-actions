@@ -41,13 +41,13 @@ jobs:
     - name: list
       run: ls -l
 
-      build2:
-        runs-on: ubuntu-latest
-        needs: build
-        steps:
-        - uses: actions/checkout@v3
-        - name: list
-          run: ls -l
+  build2:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/checkout@v3
+    - name: list
+      run: ls -l
 
 
   # test_bin:
