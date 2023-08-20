@@ -14,7 +14,7 @@ jobs:
   unit-tests-job:
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-20.04,macos-11.0]
+        os: [ubuntu-22.04, ubuntu-20.04]
         version: ['1.20', '1.19']
 
     runs-on: ${{ matrix.os }}
@@ -27,6 +27,8 @@ jobs:
       with:
         go-version: ${{ matrix.version }}
 
+    - name: Test with go
+      run: go test sum_test.go sum.go
 
   build-job:
     runs-on: ubuntu-latest
@@ -51,22 +53,22 @@ jobs:
         name: sum
         path: ./sum
 
-  # test_bin_job:
-  #   runs-on: ubuntu-latest
-  #   needs: build-job
-  #   steps:
+  test_bin_job:
+    runs-on: ubuntu-latest
+    # needs: build-job
+    steps:
 
-  #   - name: Get the binary
-  #     uses: actions/download-artifact@v3
-  #     with:
-  #       name: sum
-  #       path: .
+    - name: Get the binary
+      uses: actions/download-artifact@v3
+      with:
+        name: sum
+        path: .
 
-  #   - run: chmod +x ./sum
+    - run: chmod +x ./sum
 
-  #   # step that tests the binary output is 15 or not
-  #   - name: Test
-  #     run: ./sum 1 2 3 4 5 | grep 15
+    # step that tests the binary output is 15 or not
+    - name: Test
+      run: ./sum 1 2 3 4 5 | grep 15
 
   # docker_build_push:
   #   runs-on: ubuntu-latest
