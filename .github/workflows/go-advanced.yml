@@ -81,6 +81,7 @@ jobs:
           name: sum
           path: .
 
+      - run: ls -l
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
