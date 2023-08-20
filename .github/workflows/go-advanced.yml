@@ -70,25 +70,32 @@ jobs:
     - name: Test
       run: ./sum 1 2 3 4 5 | grep 15
 
-  # docker_build_push:
-  #   runs-on: ubuntu-latest
-  #   needs: build-job
-  #   steps:
-  #     -
-  #       name: Set up QEMU
-  #       uses: docker/setup-qemu-action@v2
-  #     -
-  #       name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v2
-  #     -
-  #       name: Login to Docker Hub
-  #       uses: docker/login-action@v2
-  #       with:
-  #         username: ${{ secrets.DOCKER_USER }}
-  #         password: ${{ secrets.DOCKER_TOKEN }}
-  #     -
-  #       name: Build and push
-  #       uses: docker/build-push-action@v4
-  #       with:
-  #         push: true
-  #         tags: ${{ secrets.DOCKER_USER }}/sum:latest
+  docker_build_push:
+    runs-on: ubuntu-latest
+    needs: build-job
+    steps:
+
+      - name: Get the binary
+        uses: actions/download-artifact@v3
+        with:
+          name: sum
+          path: .
+
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_USER }}/sum:latest

@@ -17,9 +17,9 @@ COPY go.mod sum.go ./
 
 RUN go mod download
 
-COPY . .
+COPY sum .
 
-RUN go build -o sum sum.go
+#RUN go build -o sum sum.go
 
 ENTRYPOINT ["./sum"]
 
