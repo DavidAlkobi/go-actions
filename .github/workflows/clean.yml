@@ -1,0 +1,22 @@
+name: Clean
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  Clean:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: give premissions
+      run: chmod +x cleanup.sh
+        
+    - name: Run cleanup
+      run: ./cleanup.sh
+
+  
