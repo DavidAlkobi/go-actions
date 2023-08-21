@@ -1,4 +1,4 @@
-name: Go only on change
+name: Go
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
 
 
   build:
-    if: steps.changes.outputs == 'true'
+    if: ${{ needs.changes.outputs == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
