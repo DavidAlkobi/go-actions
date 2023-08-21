@@ -3,24 +3,14 @@ name: Go
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    paths:
+     - '**.go'
+ 
 
 jobs:
 
-  tests:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: |
-          - 'sum.go'
-
 
   build:
-    if: ${{ needs.changes.outputs == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
