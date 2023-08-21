@@ -15,9 +15,8 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-         filters: |
-  
-            - 'sum.go'
+        filters: |
+          - 'sum.go'
 
 
   build:
