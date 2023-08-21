@@ -13,4 +13,5 @@ jobs:
     steps:
     - name: Test
       run: echo "${{vars.test}}"
+    - name: Echo 2  
       run: echo "${{secrets.pass}}"
