@@ -17,9 +17,5 @@ COPY go.mod sum.go ./
 
 RUN go mod download
 
-COPY sum .
-
-RUN go build -o sum sum.go
-
-ENTRYPOINT ["./sum"]
+ENTRYPOINT ["echo", "hello"]
 
