@@ -26,19 +26,36 @@ jobs:
     - name: Build
       run: go build -v ./...
 
-  Deploy:
-      needs: build
+
+  docker_build_push:
       runs-on: ubuntu-latest
-      
+      needs: build-job
       steps:
-        - uses: actions/checkout@v2 
-        - name: Deploy in EC2
-          env:
-              PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
-              HOSTNAME : ${{ secrets.HOSTNAME  }}
-              USER_NAME : ${{ secrets.USER_NAME  }}
-              
-          run: |
-            echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-            ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+
+        - name: Get the binary
+          uses: actions/download-artifact@v3
+          with:
+            name: sum
+            path: .
+
+        - run: ls -l
+        -
+          name: Set up QEMU
+          uses: docker/setup-qemu-action@v2
+        -
+          name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v2
+        -
+          name: Login to Docker Hub
+          uses: docker/login-action@v2
+          with:
+            username: ${{ secrets.DOCKER_USER }}
+            password: ${{ secrets.DOCKER_TOKEN }}
+        -
+          name: Build and push
+          uses: docker/build-push-action@v4
+          with:
+            push: true
+            tags: ${{ secrets.DOCKER_USER }}/sum:latest
+
   
