@@ -1,7 +1,7 @@
 // This program sums up integers passed as arguments
 // Usage: go run sum.go 1 2 3 4 5
 // Output: 15
-// test 3
+// test 3dfs
 package main
 
 import (
