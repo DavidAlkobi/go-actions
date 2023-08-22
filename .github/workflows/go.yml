@@ -9,9 +9,29 @@ on:
 
 jobs:
 
+  unit-tests-job:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04]
+        version: ['1.20', '1.19']
 
-  build:
+    runs-on: ${{ matrix.os }}
+    steps:
+
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: ${{ matrix.version }}
+
+    - name: Test with go
+      run: go test sum_test.go sum.go
+
+
+  build-job:
     runs-on: ubuntu-latest
+    needs: unit-tests-job
     steps:
     - uses: actions/checkout@v3
 
@@ -19,12 +39,19 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version: '1.20'
-        
-    - name: Test
-      run: go test -v ./...
 
     - name: Build
-      run: go build -v ./...
+      run: go build sum.go
+
+    - name: list
+      run: ls -l
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: sum
+        path: ./sum
+
 
 
   docker_build_push:
@@ -58,4 +85,6 @@ jobs:
             push: true
             tags: ${{ secrets.DOCKER_USER }}/sum:latest
 
+  
+  
   
