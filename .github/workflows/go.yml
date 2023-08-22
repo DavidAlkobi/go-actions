@@ -78,13 +78,11 @@ jobs:
           with:
             username: ${{ secrets.DOCKER_USER }}
             password: ${{ secrets.DOCKER_TOKEN }}
+        - name: list
+          run: ls -l     
         -
           name: Build and push
           uses: docker/build-push-action@v4
           with:
             push: true
             tags: ${{ secrets.DOCKER_USER }}/sum:latest
-
-  
-  
-  
